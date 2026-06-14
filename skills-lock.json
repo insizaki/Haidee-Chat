@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "skills": {
+    "1shot-api": {
+      "source": "1Shot-API/skills",
+      "sourceType": "github",
+      "skillPath": "1shot-api/SKILL.md",
+      "computedHash": "d91048dfd2f220e7fb6ea0d7613314196ab02ec6d236455b0ae1210767411173"
+    },
+    "public-relayer": {
+      "source": "1Shot-API/skills",
+      "sourceType": "github",
+      "skillPath": "public-relayer/SKILL.md",
+      "computedHash": "808a64162cdc6f698118b6e239d30bd078bd03bd6cbb36b7870ad5da5604fae5"
+    }
+  }
+}
