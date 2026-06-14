@@ -99,7 +99,14 @@ export async function fetchHistory(
   address: Address,
   limit: number = 5
 ): Promise<TransactionEntry[]> {
-  const alchemyKey = process.env.ALCHEMY_API_KEY;
+  let alchemyKey = process.env.ALCHEMY_API_KEY;
+  if (!alchemyKey && process.env.NEXT_PUBLIC_RPC_URL) {
+    const parts = process.env.NEXT_PUBLIC_RPC_URL.split("/");
+    const lastPart = parts[parts.length - 1];
+    if (lastPart && lastPart !== "your_alchemy_key_here" && !lastPart.includes("http")) {
+      alchemyKey = lastPart;
+    }
+  }
 
   if (alchemyKey && alchemyKey !== "your_alchemy_key_here") {
     try {
@@ -118,6 +125,7 @@ export async function fetchHistory(
                 category: ["external", "erc20"],
                 maxCount: `0x${limit.toString(16)}`,
                 order: "desc",
+                withMetadata: true,
               },
             ],
           }),
@@ -134,13 +142,15 @@ export async function fetchHistory(
           to: string;
           value: number;
           asset: string;
-          metadata: { blockTimestamp: string };
+          metadata?: { blockTimestamp?: string } | null;
         }) => ({
           hash: tx.hash,
           from: tx.from,
           to: tx.to || "Contract",
           value: `${tx.value} ${tx.asset}`,
-          timestamp: new Date(tx.metadata.blockTimestamp).getTime(),
+          timestamp: tx.metadata?.blockTimestamp
+            ? new Date(tx.metadata.blockTimestamp).getTime()
+            : Date.now(),
           status: "success" as const,
         })
       );

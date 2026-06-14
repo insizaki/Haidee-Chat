@@ -57,14 +57,15 @@ export function WalletConnect({ onConnected, wallet }: WalletConnectProps) {
             {/* Header (Navbar) */}
             <header className="relative z-10 flex items-center justify-between px-6 py-6 md:px-12">
               {/* Logo */}
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-2">
+                <img src="/logo.svg" alt="Haidee Logo" className="h-6 w-6 object-contain" />
                 <span className="text-xl font-medium tracking-widest text-white/95">Haidee</span>
                 <span className="text-[10px] font-semibold text-white/70 align-super select-none">TM</span>
               </div>
 
               {/* Navigation Links */}
               <nav className="hidden md:flex items-center gap-8 text-xs font-medium tracking-wide text-white/60">
-                {["Capabilities", "Process", "Infra", "Integrations", "Security"].map((link) => (
+                {["Features", "EIP-7715", "x402", "Venice AI", "Security"].map((link) => (
                   <span
                     key={link}
                     className="hover:text-white transition-colors duration-200 cursor-pointer"
@@ -99,14 +100,14 @@ export function WalletConnect({ onConnected, wallet }: WalletConnectProps) {
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-8 h-[1px] bg-red-500/70" />
                 <span className="text-[10px] md:text-xs font-mono uppercase tracking-[0.25em] text-white/50">
-                  Autonomous AI agents for distributed computing
+                  Conversational Smart Accounts with Session Permissions
                 </span>
               </div>
 
               {/* Main Heading */}
               <h1 className="text-4xl sm:text-6xl md:text-7xl font-light tracking-tight text-white leading-[1.08] mb-6 select-text">
-                Distributed compute,<br />
-                <span className="font-normal">agents that scale</span>
+                Your crypto wallet<br />
+                <span className="font-normal">that you talk to</span>
               </h1>
 
               {/* Start Chat Button */}
@@ -153,9 +154,9 @@ export function WalletConnect({ onConnected, wallet }: WalletConnectProps) {
             <footer className="relative z-10 px-6 py-8 md:px-12 md:py-12 border-t border-white/[0.03]">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-16 max-w-3xl">
                 {[
-                  { value: "3500+", label: "autonomous agents active" },
-                  { value: "99.7%", label: "distributed uptime" },
-                  { value: "<50ms", label: "execution latency" },
+                  { value: "Gasless", label: "micropayments via x402" },
+                  { value: "One-Click", label: "delegated session execution" },
+                  { value: "Private", label: "zero-log Venice AI interface" },
                 ].map((stat, idx) => (
                   <div key={idx} className="flex flex-col">
                     <span className="text-3xl md:text-4xl font-normal tracking-tight text-white select-text">
