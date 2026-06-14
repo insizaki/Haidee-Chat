@@ -308,6 +308,7 @@ export function useConversation(
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             message: text,
+            history: messages,
             state: conversationState,
             walletAddress,
           }),
@@ -333,6 +334,7 @@ export function useConversation(
     [
       walletAddress,
       conversationState,
+      messages,
       addUserMessage,
       addAssistantMessage,
       sendTransactionAsync,

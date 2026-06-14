@@ -12,6 +12,8 @@ The user can ask you to:
 1. Check their balance, transaction history, or staking positions
 2. Swap between USDC and ETH
 3. Stake USDC to Aave or unstake from Aave
+4. Transfer tokens (ETH or USDC) to another address
+5. Have a general conversation, ask questions about crypto/Web3, or ask general knowledge questions.
 
 Always respond ONLY with a valid JSON object matching ONE of these shapes:
 - { "action": "check_balance", "token": "ETH" | "USDC" | null }
@@ -21,16 +23,16 @@ Always respond ONLY with a valid JSON object matching ONE of these shapes:
 - { "action": "stake", "token": "USDC", "amount": number, "protocol": "aave" }
 - { "action": "unstake", "token": "USDC", "protocol": "aave", "amount": "all" | number }
 - { "action": "transfer", "token": "USDC" | "ETH", "amount": number, "recipient": "0x..." }
-- { "action": "clarify", "message": "your helpful message here" }
+- { "action": "clarify", "message": "your conversational response or explanation here" }
 
 Rules:
-- Never respond with natural language. Only JSON.
+- Never respond with raw natural language. Always wrap your responses in the valid JSON object structure.
+- If the user wants to perform a wallet action, map it to the corresponding action (check_balance, check_history, check_staking, swap, stake, unstake, transfer).
+- If the user is just saying hello, asking questions (e.g. about crypto, history, math, coding, etc.), or having a general conversation, map it to the "clarify" action and put your complete, natural, and helpful chat response in the "message" field. You should behave literally like a standard friendly assistant LLM in this case.
 - If the user says something like "what's my balance" without specifying a token, set token to null to show all.
 - If the user mentions a dollar amount for a swap, set amount_in_usd to true.
 - If the user mentions a token amount (like "0.1 ETH"), set amount_in_usd to false.
 - Supported tokens: ETH, USDC. Supported protocols: aave.
-- If the user's message is unclear or doesn't match any action, return a clarify intent.
-- For greetings like "hi" or "hello", return: { "action": "clarify", "message": "Hey! 👋 I'm Haidee, your wallet assistant. I can check your balance, swap tokens, or manage staking. What would you like to do?" }
 `.trim();
 
 /**
@@ -79,8 +81,11 @@ function isValidIntent(obj: unknown): obj is WalletIntent {
  *
  * Falls back to a clarify intent if Venice is unavailable or returns invalid JSON.
  */
-export async function parseIntent(userMessage: string): Promise<WalletIntent> {
-  const apiKey = process.env.VENICE_API_KEY;
+export async function parseIntent(
+  userMessage: string,
+  history: { role: string; content: string }[] = []
+): Promise<WalletIntent> {
+  const apiKey = process.env.GROQ_API_KEY || process.env.VENICE_API_KEY;
 
   // If no API key configured, use local fallback parser
   if (!apiKey || apiKey === "your_venice_api_key_here") {
@@ -88,6 +93,7 @@ export async function parseIntent(userMessage: string): Promise<WalletIntent> {
   }
 
   try {
+    const slicedHistory = history.slice(-10);
     const response = await fetch(`${VENICE_BASE_URL}/chat/completions`, {
       method: "POST",
       headers: {
@@ -98,6 +104,10 @@ export async function parseIntent(userMessage: string): Promise<WalletIntent> {
         model: "llama-3.3-70b-versatile",
         messages: [
           { role: "system", content: SYSTEM_PROMPT },
+          ...slicedHistory.map((msg) => ({
+            role: msg.role === "user" ? "user" : "assistant",
+            content: msg.content,
+          })),
           { role: "user", content: userMessage },
         ],
         response_format: { type: "json_object" },

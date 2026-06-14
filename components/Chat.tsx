@@ -74,7 +74,7 @@ export function Chat({ walletAddress, permissionsContext, delegationCert }: Chat
       {/* Transparent Fixed Header */}
       <header className="relative z-10 flex items-center justify-between px-6 py-4 border-b border-white/[0.04] bg-black/20 backdrop-blur-md">
         <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 shadow-lg shadow-indigo-500/20">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl">
             <img src="/logo.svg" alt="Haidee Logo" className="h-6 w-6 object-contain" />
           </div>
           <div>
@@ -134,24 +134,12 @@ export function Chat({ walletAddress, permissionsContext, delegationCert }: Chat
         {messages.length === 0 ? (
           /* Empty State — Centered layout as shown in the screenshot */
           <div className="flex-1 flex flex-col items-center justify-center px-6 text-center select-text">
-            {/* Crossed Keys Logo */}
-            <svg
-              className="w-16 h-16 text-white/90 mb-4 animate-[float_4s_ease-in-out_infinite]"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              {/* Key 1 (stem top-right to bottom-left) */}
-              <circle cx="16" cy="8" r="3" />
-              <path d="M14 10L6 18M9 15l-1.5-1.5M7 17l-1.5-1.5" />
-
-              {/* Key 2 (stem top-left to bottom-right) */}
-              <circle cx="8" cy="8" r="3" />
-              <path d="M10 10L18 18M15 15l1.5-1.5M17 17l1.5-1.5" />
-            </svg>
+            {/* Haidee Logo */}
+            <img
+              src="/logo.svg"
+              alt="Haidee Logo"
+              className="w-16 h-16 mb-4 animate-[float_4s_ease-in-out_infinite] object-contain"
+            />
 
             {/* Heading */}
             <h2 className="text-3xl md:text-4xl font-normal text-white mb-8 select-text">
@@ -338,8 +326,8 @@ export function Chat({ walletAddress, permissionsContext, delegationCert }: Chat
                 {/* Loading Indicator */}
                 {isLoading && (
                   <div className="flex items-end gap-2 message-enter">
-                    <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 text-xs font-bold text-white">
-                      H
+                    <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold bg-[#373737] text-white">
+                      <img src="/logo.svg" alt="Haidee Logo" className="h-4 w-4 object-contain" />
                     </div>
                     <div className="glass-card rounded-2xl rounded-bl-md px-4 py-3">
                       <div className="flex gap-1">

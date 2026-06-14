@@ -29,8 +29,9 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req: NextRequest) {
   try {
-    const { message, state, walletAddress } = (await req.json()) as {
+    const { message, history, state, walletAddress } = (await req.json()) as {
       message: string;
+      history?: { role: string; content: string }[];
       state: ConversationState;
       walletAddress: string;
     };
@@ -69,7 +70,7 @@ export async function POST(req: NextRequest) {
     // =========================================================================
     // Step 2: Parse intent via Venice AI
     // =========================================================================
-    const intent = await parseIntent(message);
+    const intent = await parseIntent(message, history || []);
 
     // =========================================================================
     // Step 3: Handle informational intents (no confirmation needed)

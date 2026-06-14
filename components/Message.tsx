@@ -69,20 +69,20 @@ export function Message({ message, onConfirm, onCancel }: MessageProps) {
         <div className={`flex items-end gap-2 ${isUser ? "flex-row-reverse" : ""}`}>
           {/* Avatar */}
           <div
-            className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold ${
-              isUser
-                ? "bg-indigo-600 text-white"
-                : "bg-gradient-to-br from-violet-500 to-indigo-600 text-white"
-            }`}
+            className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full text-xs font-bold bg-[#373737] text-white"
           >
-            {isUser ? "U" : "H"}
+            {isUser ? (
+              "U"
+            ) : (
+              <img src="/logo.svg" alt="Haidee Logo" className="h-4 w-4 object-contain" />
+            )}
           </div>
 
           {/* Bubble */}
           <div
             className={`rounded-2xl px-4 py-3 text-sm leading-relaxed ${
               isUser
-                ? "bg-indigo-600 text-white rounded-br-md"
+                ? "bg-[#373737] text-white rounded-br-md"
                 : "glass-card text-gray-100 rounded-bl-md"
             }`}
           >

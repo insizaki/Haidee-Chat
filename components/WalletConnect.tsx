@@ -76,19 +76,19 @@ export function WalletConnect({ onConnected, wallet }: WalletConnectProps) {
 
               {/* Action Buttons */}
               <div className="flex items-center gap-6">
-                <button
+                {/* <button
                   onClick={openConnectModal}
                   disabled={!ready}
                   className="text-xs font-semibold tracking-wide text-white/80 hover:text-white transition-colors duration-200 cursor-pointer disabled:opacity-50"
                 >
                   Sign in
-                </button>
+                </button> */}
                 <button
                   onClick={openConnectModal}
                   disabled={!ready}
                   className="bg-white text-black font-semibold text-xs tracking-wider px-6 py-2.5 rounded-full hover:bg-neutral-200 active:scale-95 transition-all duration-200 cursor-pointer shadow-lg shadow-white/5 disabled:opacity-50"
                 >
-                  Deploy agent
+                  Connect Wallet
                 </button>
               </div>
             </header>
