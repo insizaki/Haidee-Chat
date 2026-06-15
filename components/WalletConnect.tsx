@@ -39,7 +39,7 @@ export function WalletConnect({ onConnected, wallet }: WalletConnectProps) {
               className="absolute inset-0 h-full w-full object-cover z-0 opacity-80 pointer-events-none"
               style={{ filter: "brightness(0.55)" }}
             >
-              <source src="/11902813_1620_1080_15fps.mp4" type="video/mp4" />
+              <source src="/bg.mp4" type="video/mp4" />
             </video>
 
             {/* Dark & Glassy Gradients Overlay */}
